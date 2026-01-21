@@ -109,7 +109,55 @@ const translations = {
         "contact.githubNote": "(replace with your real link)",
         "contact.noteTitle": "Quick note",
         "contact.noteBody":
-            "This portfolio is built for SEG3525 and will evolve into a long-term professional site with detailed case studies, screenshots, and design rationale."
+            "This portfolio is built for SEG3525 and will evolve into a long-term professional site with detailed case studies, screenshots, and design rationale.",
+
+        "case.back": "Back to projects",
+        "case.card.title": "C++ Card Game",
+        "case.card.subtitle": "An object-oriented card game in C++ with clean architecture, game rules engine, and structured design.",
+        "case.skill": "Design",
+
+        "case.overview.title": "Overview",
+        "case.overview.p1": "This project demonstrates strong object-oriented design using C++: classes, encapsulation, inheritance, and polymorphism, with a clear separation between game logic, player actions, and I/O.",
+        "case.overview.p2": "The goal was to build a maintainable game core that is easy to extend (new card types, rules, or game modes).",
+
+        "case.problem.title": "Problem",
+        "case.problem.b1": "Design a card game with clear rules and predictable game flow.",
+        "case.problem.b2": "Keep the codebase extensible (new cards/rules) without rewriting everything.",
+        "case.problem.b3": "Avoid spaghetti logic by structuring responsibilities properly.",
+
+        "case.solution.title": "Solution",
+        "case.solution.p1": "I designed the game using an OOP architecture: a base Card type, specialized derived cards, and a Game engine that controls turns, state, and rule validation.",
+        "case.solution.b1": "Core entities: Game, Player, Deck, Hand, Card (base) + derived cards.",
+        "case.solution.b2": "A rules/validation layer to ensure legal moves and consistent state updates.",
+        "case.solution.b3": "Separated I/O from logic (so you can swap CLI later if needed).",
+
+        "case.features.title": "Key features",
+        "case.features.f1.title": "Clean game loop",
+        "case.features.f1.desc": "Turns, phases, and end conditions handled by a single game engine.",
+        "case.features.f2.title": "OOP extensibility",
+        "case.features.f2.desc": "Add new card types without changing existing logic (polymorphism).",
+        "case.features.f3.title": "Validation & state safety",
+        "case.features.f3.desc": "Moves are validated to avoid invalid states and edge case bugs.",
+        "case.features.f4.title": "Readable structure",
+        "case.features.f4.desc": "Clear folder/class responsibilities and documentation-friendly flow.",
+
+        "case.arch.title": "Architecture",
+        "case.arch.p1": "High-level structure (example):",
+        "case.arch.p2": "The game engine controls the flow; cards encapsulate behavior; players interact through validated actions.",
+
+        "case.next.title": "Next improvements",
+        "case.next.b1": "Add unit tests for rule validation and edge cases.",
+        "case.next.b2": "Add a GUI later (or web version) using the same game engine.",
+        "case.next.b3": "Add save/load game state.",
+
+        "case.summary.title": "Project summary",
+        "case.summary.roleLabel": "Role",
+        "case.summary.role": "Solo developer",
+        "case.summary.stackLabel": "Tech stack",
+        "case.summary.skillsLabel": "Skills shown",
+        "case.summary.skills": "Architecture, OOP, clean logic, debugging",
+        "case.summary.ctaContact": "Contact",
+        "case.summary.ctaRepo": "View code",
     },
 
     fr: {
@@ -194,7 +242,55 @@ const translations = {
         "contact.githubNote": "(remplace par ton vrai lien)",
         "contact.noteTitle": "Note rapide",
         "contact.noteBody":
-            "Ce portfolio est réalisé pour SEG3525 et deviendra un site professionnel long terme (études de cas détaillées, captures, justification de design)."
+            "Ce portfolio est réalisé pour SEG3525 et deviendra un site professionnel long terme (études de cas détaillées, captures, justification de design).",
+
+        "case.back": "Retour aux projets",
+        "case.card.title": "Jeu de cartes en C++",
+        "case.card.subtitle": "Un jeu de cartes orienté objet en C++ avec une architecture propre, un moteur de règles et une conception structurée.",
+        "case.skill": "Conception",
+
+        "case.overview.title": "Aperçu",
+        "case.overview.p1": "Ce projet démontre une forte conception orientée objet en C++ : classes, encapsulation, héritage et polymorphisme, avec une séparation claire entre la logique de jeu, les actions des joueurs et les entrées/sorties.",
+        "case.overview.p2": "L’objectif était de construire un cœur de jeu maintenable et facile à étendre (nouveaux types de cartes, règles ou modes).",
+
+        "case.problem.title": "Problématique",
+        "case.problem.b1": "Concevoir un jeu de cartes avec des règles claires et un déroulement prévisible.",
+        "case.problem.b2": "Garder le code extensible (nouvelles cartes/règles) sans tout réécrire.",
+        "case.problem.b3": "Éviter une logique “spaghetti” en structurant correctement les responsabilités.",
+
+        "case.solution.title": "Solution",
+        "case.solution.p1": "J’ai conçu le jeu avec une architecture OOP : un type Card de base, des cartes dérivées, et un moteur Game qui gère les tours, l’état, et la validation des règles.",
+        "case.solution.b1": "Entités principales : Game, Player, Deck, Hand, Card (base) + cartes dérivées.",
+        "case.solution.b2": "Couche de règles/validation pour assurer des coups légaux et un état cohérent.",
+        "case.solution.b3": "Séparation des I/O et de la logique (permet de remplacer la CLI plus tard).",
+
+        "case.features.title": "Fonctionnalités clés",
+        "case.features.f1.title": "Boucle de jeu propre",
+        "case.features.f1.desc": "Tours, phases et conditions de fin gérés par un moteur unique.",
+        "case.features.f2.title": "Extensibilité OOP",
+        "case.features.f2.desc": "Ajouter des cartes sans modifier la logique existante (polymorphisme).",
+        "case.features.f3.title": "Validation & sécurité d’état",
+        "case.features.f3.desc": "Validation des actions pour éviter états invalides et bugs de cas limites.",
+        "case.features.f4.title": "Structure lisible",
+        "case.features.f4.desc": "Responsabilités claires par classe/dossier, facile à documenter.",
+
+        "case.arch.title": "Architecture",
+        "case.arch.p1": "Structure haut niveau (exemple) :",
+        "case.arch.p2": "Le moteur contrôle le flow ; les cartes encapsulent le comportement ; les joueurs interagissent via des actions validées.",
+
+        "case.next.title": "Améliorations futures",
+        "case.next.b1": "Ajouter des tests unitaires pour la validation des règles et les cas limites.",
+        "case.next.b2": "Ajouter une interface graphique plus tard (ou une version web) avec le même moteur.",
+        "case.next.b3": "Ajouter la sauvegarde/chargement de partie.",
+
+        "case.summary.title": "Résumé du projet",
+        "case.summary.roleLabel": "Rôle",
+        "case.summary.role": "Développeur solo",
+        "case.summary.stackLabel": "Technos",
+        "case.summary.skillsLabel": "Compétences démontrées",
+        "case.summary.skills": "Architecture, OOP, logique propre, debugging",
+        "case.summary.ctaContact": "Contact",
+        "case.summary.ctaRepo": "Voir le code",
     }
 };
 

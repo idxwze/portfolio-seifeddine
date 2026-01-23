@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Recommendation System | Seifeddine Reguige</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="../index.html" data-i18n="brand.name">Seifeddine</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"
+                aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link" href="../index.html#projects" data-i18n="nav.projects">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href="../index.html#contact" data-i18n="nav.contact">Contact</a></li>
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0 d-flex gap-2">
+                    <button id="langToggle" class="btn btn-sm btn-outline-dark" type="button" aria-label="Toggle language">FR</button>
+                    <button id="themeToggle" class="btn btn-sm btn-dark" type="button" aria-label="Toggle theme">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="py-5 hero">
+    <div class="container py-4">
+        <p class="text-uppercase small text-muted mb-2">
+            <a href="../index.html#projects" class="text-muted text-decoration-none">
+                ← <span data-i18n="case.movie.back">Back to projects</span>
+            </a>
+        </p>
+
+        <h1 class="display-6 fw-bold mb-2" data-i18n="case.movie.title">Movie Recommendation System</h1>
+
+        <p class="lead text-muted mb-4" data-i18n="case.movie.subtitle">
+            Similarity-based recommender with clean data pipelines, scoring, and top-N ranking.
+        </p>
+
+        <div class="d-flex gap-2 flex-wrap">
+            <span class="badge text-bg-light border">Python</span>
+            <span class="badge text-bg-light border">Algorithms</span>
+            <span class="badge text-bg-light border">Data</span>
+            <span class="badge text-bg-light border">Ranking</span>
+            <span class="badge text-bg-light border">Parsing</span>
+        </div>
+    </div>
+</header>
+
+<main class="py-5">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- Left -->
+            <div class="col-lg-8">
+
+                <section class="mb-4">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.overview.title">Overview</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <p class="text-muted mb-2" data-i18n="case.movie.overview.p1">
+                            This project builds a recommendation pipeline that takes movie metadata and produces top-N movie suggestions using similarity scoring.
+                        </p>
+                        <p class="text-muted mb-0" data-i18n="case.movie.overview.p2">
+                            The focus is on maintainable design: data ingestion, preprocessing, scoring, and ranking are separated so the system can evolve.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.problem.title">Problem</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <ul class="text-muted mb-0">
+                            <li data-i18n="case.movie.problem.b1">Parse and clean real-world datasets reliably.</li>
+                            <li data-i18n="case.movie.problem.b2">Generate relevant recommendations with an explainable approach.</li>
+                            <li data-i18n="case.movie.problem.b3">Keep the pipeline modular to allow improvements without rewrites.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.solution.title">Solution</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <p class="text-muted mb-2" data-i18n="case.movie.solution.p1">
+                            I implemented a modular pipeline: ingestion → preprocessing/feature extraction → similarity scoring → ranking.
+                        </p>
+                        <ul class="text-muted mb-0">
+                            <li data-i18n="case.movie.solution.b1">Preprocessing steps normalize text fields and numeric features.</li>
+                            <li data-i18n="case.movie.solution.b2">Similarity scoring can be swapped (cosine-style / set similarity) without changing the rest of the code.</li>
+                            <li data-i18n="case.movie.solution.b3">Top-N ranking output is structured for evaluation and future UI/API integration.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.features.title">Key features</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3">
+                                    <h3 class="h6 mb-1" data-i18n="case.movie.features.f1.title">Scalable preprocessing</h3>
+                                    <p class="text-muted mb-0" data-i18n="case.movie.features.f1.desc">Robust parsing and cleaning designed to handle larger datasets.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3">
+                                    <h3 class="h6 mb-1" data-i18n="case.movie.features.f2.title">Configurable similarity</h3>
+                                    <p class="text-muted mb-0" data-i18n="case.movie.features.f2.desc">Switch scoring strategies without rewriting the pipeline.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3">
+                                    <h3 class="h6 mb-1" data-i18n="case.movie.features.f3.title">Clean separation</h3>
+                                    <p class="text-muted mb-0" data-i18n="case.movie.features.f3.desc">Data layer and ranking logic are separated for maintainability.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded-3">
+                                    <h3 class="h6 mb-1" data-i18n="case.movie.features.f4.title">Evaluation-ready output</h3>
+                                    <p class="text-muted mb-0" data-i18n="case.movie.features.f4.desc">Top-N output designed to support metrics (Precision@K, Recall@K).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.arch.title">Architecture</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <p class="text-muted mb-2" data-i18n="case.movie.arch.p1">High-level structure (example):</p>
+
+                        <pre class="mb-0"><code>
+/src
+  ingest.py
+  preprocess.py
+  similarity.py
+  rank.py
+  main.py
+            </code></pre>
+
+                        <p class="text-muted mt-3 mb-0" data-i18n="case.movie.arch.p2">
+                            Each stage can be tested independently, making the system easier to debug and improve.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.ui.title">UI (screenshots)</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <p class="text-muted mb-3" data-i18n="case.movie.ui.note">
+                            Add screenshots here: dataset summary, similarity results, top-N output, or a small demo UI if you have one.
+                        </p>
+
+                        <div class="row g-3">
+                            <div class="col-md-6"><div class="border rounded-3 p-3 text-muted small">Screenshot 1 — Dataset / Preprocessing</div></div>
+                            <div class="col-md-6"><div class="border rounded-3 p-3 text-muted small">Screenshot 2 — Similarity / Ranking</div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-0">
+                    <h2 class="h4 fw-semibold mb-2" data-i18n="case.movie.next.title">Next improvements</h2>
+                    <div class="p-4 border rounded-3 bg-white">
+                        <ul class="text-muted mb-0">
+                            <li data-i18n="case.movie.next.b1">Add offline evaluation metrics (Precision@K, Recall@K).</li>
+                            <li data-i18n="case.movie.next.b2">Cache computed features for faster scoring.</li>
+                            <li data-i18n="case.movie.next.b3">Expose the recommender through a small API or demo interface.</li>
+                        </ul>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right -->
+            <div class="col-lg-4">
+                <aside class="p-4 border rounded-3 bg-white h-100">
+                    <h2 class="h5 fw-semibold mb-3" data-i18n="case.movie.summary.title">Project summary</h2>
+
+                    <div class="mb-3">
+                        <div class="text-muted small" data-i18n="case.movie.summary.roleLabel">Role</div>
+                        <div class="fw-semibold" data-i18n="case.movie.summary.role">Developer</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-muted small" data-i18n="case.movie.summary.stackLabel">Tech stack</div>
+                        <div class="fw-semibold">Python, Data Processing, Similarity Scoring</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="text-muted small" data-i18n="case.movie.summary.skillsLabel">Skills shown</div>
+                        <div class="fw-semibold" data-i18n="case.movie.summary.skills">Data pipelines, algorithms, modular design</div>
+                    </div>
+
+                    <hr class="my-4">
+                    <a class="btn btn-dark w-100 mb-2" href="../index.html#contact" data-i18n="case.movie.summary.ctaContact">Contact</a>
+                </aside>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer class="py-4 border-top">
+    <div class="container text-muted small">
+        © <span id="year"></span> Seifeddine Reguige
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/main.js"></script>
+</body>
+</html>

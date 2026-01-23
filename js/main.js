@@ -1,23 +1,49 @@
+// ===== Helpers =====
+const root = document.documentElement;
+
+function setStored(key, value) {
+    try { localStorage.setItem(key, value); } catch {}
+}
+function getStored(key) {
+    try { return localStorage.getItem(key); } catch { return null; }
+}
+
 // ===== Footer year =====
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+// ===== Page open animation =====
+function markPageLoaded() {
+    document.body.classList.add("page-loaded");
+}
+document.addEventListener("DOMContentLoaded", markPageLoaded);
+window.addEventListener("load", markPageLoaded);
+
 // ===== Theme (dark/light) =====
 const themeToggle = document.getElementById("themeToggle");
-const root = document.documentElement;
 
 function setTheme(theme) {
     root.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    if (themeToggle) themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+    setStored("theme", theme);
+
+    if (themeToggle) {
+        // if theme is dark -> show sun (meaning "switch to light")
+        themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
+        themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    }
 }
 
-const savedTheme = localStorage.getItem("theme") || "light";
-setTheme(savedTheme);
+// Default theme:
+// If user has saved preference, use it.
+// Else try system preference.
+// Else use "dark" (best for your B&W motion design).
+const savedTheme = getStored("theme");
+const systemPrefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+setTheme(savedTheme || (systemPrefersDark ? "dark" : "dark"));
 
 if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-        const current = root.getAttribute("data-theme") || "light";
+        const current = root.getAttribute("data-theme") || "dark";
         setTheme(current === "dark" ? "light" : "dark");
     });
 }
@@ -42,27 +68,30 @@ const translations = {
             "Computer Science student focused on building reliable, clean web and systems solutions — from backend logic and databases to troubleshooting and performance debugging.",
         "hero.cta.projects": "View Projects",
         "hero.cta.contact": "Contact",
+        "hero.cta.cv": "Download CV",
         "hero.tag.backend": "Backend",
         "hero.tag.ml": "Data/ML",
         "hero.tag.cyber": "Cybersecurity",
         "hero.tag.net": "Networking",
 
         "about.title": "About",
+        // 👇 Keep as HTML if you want paragraphs & bullets
         "about.p1":
-            "I’m a Computer Science student at the University of Ottawa, focused on backend and systems work: Linux troubleshooting, database engineering, and building maintainable web solutions.",
-        "about.p2":
-            "I enjoy debugging complex issues using logs, system metrics, and structured workflows — then turning fixes into clean documentation and repeatable processes.",
+            "I’m a Computer Science student at the University of Ottawa specializing in backend development, systems programming, networking, and applied machine learning. I enjoy breaking down complex technical problems, building reliable systems, and understanding how software and networks behave under real-world constraints.<br><br>" +
+            "My experience spans Linux systems, backend engineering (Java/C++/Python), database design, network protocols (TCP/IP, DNS, DHCP, VLANs), packet analysis, and basic cybersecurity tooling (Suricata, Wireshark, pfSense, Splunk). I’ve built projects in C++, Java, Go, SQL, and Python, including recommender systems, reservation platforms, and secure Android applications.<br><br>" +
+            "Alongside my studies, I work as a Technical Assistant at the Adapted Exams Centre, where I diagnose and resolve OS, networking, and configuration issues across 100+ workstations. This role has strengthened my debugging ability, problem-solving skills, and confidence in analyzing systems under pressure.<br><br>" +
+            "I am actively seeking Winter 2026 internships in:<br>• Software Engineering / Backend<br>• Network Engineering / Infrastructure<br>• Cybersecurity (SOC, Blue Team, Security Engineering)<br>• Data / Machine Learning",
 
         "process.title": "How I Work",
-        "process.s1.title": "1) Understand",
+        "process.s1.title": "Understand",
         "process.s1.desc": "Clarify goals, users, constraints, and success criteria.",
-        "process.s2.title": "2) Design",
+        "process.s2.title": "Design",
         "process.s2.desc": "Sketch structure, define UI flow, and plan data/models if needed.",
-        "process.s3.title": "3) Build",
+        "process.s3.title": "Build",
         "process.s3.desc": "Implement in small, testable components with clean code.",
-        "process.s4.title": "4) Validate",
+        "process.s4.title": "Validate",
         "process.s4.desc": "Test edge cases, responsiveness, performance, and accessibility.",
-        "process.s5.title": "5) Iterate",
+        "process.s5.title": "Iterate",
         "process.s5.desc": "Refine based on feedback, document decisions, and polish.",
 
         "projects.title": "Projects",
@@ -106,58 +135,11 @@ const translations = {
         "contact.lead": "Want to collaborate or discuss an internship? Send me a message.",
         "contact.emailLabel": "Email:",
         "contact.phoneLabel": "Phone:",
-        "contact.githubNote": "(replace with your real link)",
+        "contact.phoneValue": "On demand",
+        "contact.githubNote": "",
         "contact.noteTitle": "Quick note",
         "contact.noteBody":
-            "This portfolio is built for SEG3525 and will evolve into a long-term professional site with detailed case studies, screenshots, and design rationale.",
-
-        "case.back": "Back to projects",
-        "case.card.title": "C++ Card Game",
-        "case.card.subtitle": "An object-oriented card game in C++ with clean architecture, game rules engine, and structured design.",
-        "case.skill": "Design",
-
-        "case.overview.title": "Overview",
-        "case.overview.p1": "This project demonstrates strong object-oriented design using C++: classes, encapsulation, inheritance, and polymorphism, with a clear separation between game logic, player actions, and I/O.",
-        "case.overview.p2": "The goal was to build a maintainable game core that is easy to extend (new card types, rules, or game modes).",
-
-        "case.problem.title": "Problem",
-        "case.problem.b1": "Design a card game with clear rules and predictable game flow.",
-        "case.problem.b2": "Keep the codebase extensible (new cards/rules) without rewriting everything.",
-        "case.problem.b3": "Avoid spaghetti logic by structuring responsibilities properly.",
-
-        "case.solution.title": "Solution",
-        "case.solution.p1": "I designed the game using an OOP architecture: a base Card type, specialized derived cards, and a Game engine that controls turns, state, and rule validation.",
-        "case.solution.b1": "Core entities: Game, Player, Deck, Hand, Card (base) + derived cards.",
-        "case.solution.b2": "A rules/validation layer to ensure legal moves and consistent state updates.",
-        "case.solution.b3": "Separated I/O from logic (so you can swap CLI later if needed).",
-
-        "case.features.title": "Key features",
-        "case.features.f1.title": "Clean game loop",
-        "case.features.f1.desc": "Turns, phases, and end conditions handled by a single game engine.",
-        "case.features.f2.title": "OOP extensibility",
-        "case.features.f2.desc": "Add new card types without changing existing logic (polymorphism).",
-        "case.features.f3.title": "Validation & state safety",
-        "case.features.f3.desc": "Moves are validated to avoid invalid states and edge case bugs.",
-        "case.features.f4.title": "Readable structure",
-        "case.features.f4.desc": "Clear folder/class responsibilities and documentation-friendly flow.",
-
-        "case.arch.title": "Architecture",
-        "case.arch.p1": "High-level structure (example):",
-        "case.arch.p2": "The game engine controls the flow; cards encapsulate behavior; players interact through validated actions.",
-
-        "case.next.title": "Next improvements",
-        "case.next.b1": "Add unit tests for rule validation and edge cases.",
-        "case.next.b2": "Add a GUI later (or web version) using the same game engine.",
-        "case.next.b3": "Add save/load game state.",
-
-        "case.summary.title": "Project summary",
-        "case.summary.roleLabel": "Role",
-        "case.summary.role": "Solo developer",
-        "case.summary.stackLabel": "Tech stack",
-        "case.summary.skillsLabel": "Skills shown",
-        "case.summary.skills": "Architecture, OOP, clean logic, debugging",
-        "case.summary.ctaContact": "Contact",
-        "case.summary.ctaRepo": "View code",
+            "This portfolio is built for SEG3525 and will evolve into a long-term professional site with detailed case studies, screenshots, and design rationale."
     },
 
     fr: {
@@ -175,6 +157,7 @@ const translations = {
             "Étudiant en informatique, orienté vers des solutions web et systèmes fiables — du backend et des bases de données jusqu’au diagnostic et à l’optimisation des performances.",
         "hero.cta.projects": "Voir les projets",
         "hero.cta.contact": "Me contacter",
+        "hero.cta.cv": "Télécharger le CV",
         "hero.tag.backend": "Backend",
         "hero.tag.ml": "Data/ML",
         "hero.tag.cyber": "Cybersécurité",
@@ -182,20 +165,21 @@ const translations = {
 
         "about.title": "À propos",
         "about.p1":
-            "Je suis étudiant en informatique à l’Université d’Ottawa, avec un focus sur le backend et les systèmes : troubleshooting Linux, ingénierie des bases de données et développement de solutions web maintenables.",
-        "about.p2":
-            "J’aime résoudre des problèmes complexes via les logs, les métriques système et une méthode structurée — puis transformer les correctifs en documentation claire et procédures reproductibles.",
+            "Je suis étudiant en informatique à l’Université d’Ottawa, spécialisé en développement backend, programmation système, réseaux et apprentissage automatique appliqué. J’aime décomposer des problèmes techniques complexes, construire des systèmes fiables et comprendre comment les logiciels et les réseaux se comportent sous des contraintes réelles.<br><br>" +
+            "Mon expérience couvre les systèmes Linux, l’ingénierie backend (Java/C++/Python), la conception de bases de données, les protocoles réseau (TCP/IP, DNS, DHCP, VLAN), l’analyse de paquets et des outils de cybersécurité de base (Suricata, Wireshark, pfSense, Splunk). J’ai réalisé des projets en C++, Java, Go, SQL et Python, notamment des systèmes de recommandation, des plateformes de réservation et des applications Android sécurisées.<br><br>" +
+            "En parallèle de mes études, je travaille comme assistant technique au Adapted Exams Centre, où je diagnostique et résous des problèmes liés au système d’exploitation, au réseau et aux configurations sur plus de 100 postes de travail. Ce poste a renforcé mes capacités de débogage, mes compétences en résolution de problèmes et ma confiance dans l’analyse de systèmes sous pression.<br><br>" +
+            "Je recherche activement des stages pour l’hiver 2026 dans :<br>• Génie logiciel / Backend<br>• Ingénierie réseau / Infrastructure<br>• Cybersécurité (SOC, Blue Team, ingénierie sécurité)<br>• Données / Apprentissage automatique",
 
         "process.title": "Ma méthode",
-        "process.s1.title": "1) Comprendre",
+        "process.s1.title": "Comprendre",
         "process.s1.desc": "Clarifier objectifs, utilisateurs, contraintes et critères de réussite.",
-        "process.s2.title": "2) Concevoir",
+        "process.s2.title": "Concevoir",
         "process.s2.desc": "Esquisser la structure, définir le flow UI, et planifier les données/modèles si nécessaire.",
-        "process.s3.title": "3) Construire",
+        "process.s3.title": "Construire",
         "process.s3.desc": "Implémenter par petites étapes testables, avec du code propre et modulaire.",
-        "process.s4.title": "4) Valider",
+        "process.s4.title": "Valider",
         "process.s4.desc": "Tester les cas limites, le responsive, la performance et l’accessibilité.",
-        "process.s5.title": "5) Améliorer",
+        "process.s5.title": "Améliorer",
         "process.s5.desc": "Itérer, documenter les décisions, et polir le rendu final.",
 
         "projects.title": "Projets",
@@ -239,58 +223,11 @@ const translations = {
         "contact.lead": "Tu veux collaborer ou discuter d’un stage ? Envoie-moi un message.",
         "contact.emailLabel": "Email :",
         "contact.phoneLabel": "Téléphone :",
-        "contact.githubNote": "(remplace par ton vrai lien)",
+        "contact.phoneValue": "Sur demande",
+        "contact.githubNote": "",
         "contact.noteTitle": "Note rapide",
         "contact.noteBody":
-            "Ce portfolio est réalisé pour SEG3525 et deviendra un site professionnel long terme (études de cas détaillées, captures, justification de design).",
-
-        "case.back": "Retour aux projets",
-        "case.card.title": "Jeu de cartes en C++",
-        "case.card.subtitle": "Un jeu de cartes orienté objet en C++ avec une architecture propre, un moteur de règles et une conception structurée.",
-        "case.skill": "Conception",
-
-        "case.overview.title": "Aperçu",
-        "case.overview.p1": "Ce projet démontre une forte conception orientée objet en C++ : classes, encapsulation, héritage et polymorphisme, avec une séparation claire entre la logique de jeu, les actions des joueurs et les entrées/sorties.",
-        "case.overview.p2": "L’objectif était de construire un cœur de jeu maintenable et facile à étendre (nouveaux types de cartes, règles ou modes).",
-
-        "case.problem.title": "Problématique",
-        "case.problem.b1": "Concevoir un jeu de cartes avec des règles claires et un déroulement prévisible.",
-        "case.problem.b2": "Garder le code extensible (nouvelles cartes/règles) sans tout réécrire.",
-        "case.problem.b3": "Éviter une logique “spaghetti” en structurant correctement les responsabilités.",
-
-        "case.solution.title": "Solution",
-        "case.solution.p1": "J’ai conçu le jeu avec une architecture OOP : un type Card de base, des cartes dérivées, et un moteur Game qui gère les tours, l’état, et la validation des règles.",
-        "case.solution.b1": "Entités principales : Game, Player, Deck, Hand, Card (base) + cartes dérivées.",
-        "case.solution.b2": "Couche de règles/validation pour assurer des coups légaux et un état cohérent.",
-        "case.solution.b3": "Séparation des I/O et de la logique (permet de remplacer la CLI plus tard).",
-
-        "case.features.title": "Fonctionnalités clés",
-        "case.features.f1.title": "Boucle de jeu propre",
-        "case.features.f1.desc": "Tours, phases et conditions de fin gérés par un moteur unique.",
-        "case.features.f2.title": "Extensibilité OOP",
-        "case.features.f2.desc": "Ajouter des cartes sans modifier la logique existante (polymorphisme).",
-        "case.features.f3.title": "Validation & sécurité d’état",
-        "case.features.f3.desc": "Validation des actions pour éviter états invalides et bugs de cas limites.",
-        "case.features.f4.title": "Structure lisible",
-        "case.features.f4.desc": "Responsabilités claires par classe/dossier, facile à documenter.",
-
-        "case.arch.title": "Architecture",
-        "case.arch.p1": "Structure haut niveau (exemple) :",
-        "case.arch.p2": "Le moteur contrôle le flow ; les cartes encapsulent le comportement ; les joueurs interagissent via des actions validées.",
-
-        "case.next.title": "Améliorations futures",
-        "case.next.b1": "Ajouter des tests unitaires pour la validation des règles et les cas limites.",
-        "case.next.b2": "Ajouter une interface graphique plus tard (ou une version web) avec le même moteur.",
-        "case.next.b3": "Ajouter la sauvegarde/chargement de partie.",
-
-        "case.summary.title": "Résumé du projet",
-        "case.summary.roleLabel": "Rôle",
-        "case.summary.role": "Développeur solo",
-        "case.summary.stackLabel": "Technos",
-        "case.summary.skillsLabel": "Compétences démontrées",
-        "case.summary.skills": "Architecture, OOP, logique propre, debugging",
-        "case.summary.ctaContact": "Contact",
-        "case.summary.ctaRepo": "Voir le code",
+            "Ce portfolio est réalisé pour SEG3525 et deviendra un site professionnel long terme (études de cas détaillées, captures, justification de design)."
     }
 };
 
@@ -298,20 +235,97 @@ function applyLang(lang) {
     document.querySelectorAll("[data-i18n]").forEach(el => {
         const key = el.getAttribute("data-i18n");
         const value = translations[lang]?.[key];
-        if (value) el.textContent = value;
+        if (!value) return;
+
+        // Allow safe HTML only if explicitly enabled on the element
+        const allowHTML = el.getAttribute("data-i18n-html") === "true";
+        if (allowHTML) el.innerHTML = value;
+        else el.textContent = value;
     });
 
-    localStorage.setItem("lang", lang);
+    setStored("lang", lang);
     if (langToggle) langToggle.textContent = lang === "fr" ? "EN" : "FR";
 }
 
 // Default language = English
-const savedLang = localStorage.getItem("lang") || "en";
+const savedLang = getStored("lang") || "en";
 applyLang(savedLang);
 
 if (langToggle) {
     langToggle.addEventListener("click", () => {
-        const current = localStorage.getItem("lang") || "en";
+        const current = getStored("lang") || "en";
         applyLang(current === "fr" ? "en" : "fr");
     });
 }
+
+// ===== Scroll Reveal (IntersectionObserver) =====
+(function initScrollReveal() {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    const els = document.querySelectorAll(".reveal");
+    if (!els.length) return;
+
+    const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+            if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+
+    els.forEach(el => obs.observe(el));
+})();
+
+// ===== Intro animation (first visit) =====
+(function initIntro() {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    const intro = document.getElementById("intro");
+    if (!intro) return;
+
+    const seen = localStorage.getItem("introSeen");
+    if (seen === "1") return;
+
+    // Activate intro + blur site
+    document.body.classList.add("is-intro");
+    intro.classList.add("is-active");
+
+    const endIntro = () => {
+        intro.classList.remove("is-active");
+        document.body.classList.remove("is-intro");
+        localStorage.setItem("introSeen", "1");
+    };
+
+    // Auto end after ~1.8s
+    const t = setTimeout(endIntro, 2800);
+
+    // Allow skip
+    intro.addEventListener("click", () => {
+        clearTimeout(t);
+        endIntro();
+    });
+
+    window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            clearTimeout(t);
+            endIntro();
+        }
+    }, { once: true });
+})();
+
+// ===== Navbar micro-behavior on scroll =====
+(function navScrollFX(){
+    const nav = document.querySelector(".navbar");
+    if (!nav) return;
+
+    const onScroll = () => {
+        if (window.scrollY > 10) nav.classList.add("is-scrolled");
+        else nav.classList.remove("is-scrolled");
+    };
+
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+})();
